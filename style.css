@@ -2,15 +2,15 @@
 
 :root{
   --borde: 16px;
-  --sombra: 0 10px 28px rgba(0,0,0,.35);
-  --sombra-hover: 0 10px 24px rgba(0,0,0,.28);  /* sombra suave */
+  --sombra: 0 6px 18px rgba(0,0,0,.35);
+  --sombra-hover: 0 12px 32px rgba(0,0,0,.55);
   --fondo-1: #0e0f12;  /* fondo general */
   --fondo-2: #15171c;  /* cartas */
   --fondo-3: #1c1f26;  /* inputs */
   --texto-1: #e8eaee;
   --texto-2: #aab2c0;
-  --acento:  #7c5cff;  /* violeta azulado */
-  --acento-2:#9f86ff;
+  --acento:  #0d0f13;  /* violeta azulado */
+  --acento-2:#111318;
   --dorado:  #f1b900;
   --gris-estrella: #505760;
 }
@@ -46,7 +46,9 @@
 .card-pelicula,
 .btn:not(.btn-link){
   transition: box-shadow .18s ease, transform .18s ease;
+  box-shadow: var(--sombra);
 }
+
 .hover-sombra:hover,
 .card-pelicula:hover,
 .btn:not(.btn-link):hover{
@@ -112,4 +114,21 @@
 .detalle-poster{
   max-width: 320px;  /* límite elegante en pantallas grandes */
   margin-inline: auto;
+}
+
+/* =======================
+   Pie de página elegante
+========================== */
+.footer-oscuro{
+  background: linear-gradient(180deg, #111318 0%, #0d0f13 100%);
+  color: var(--texto-2);
+  font-size: 0.9rem;
+  border-color: #1e222b !important;
+}
+.footer-oscuro p{
+  letter-spacing: 0.2px;
+}
+.footer-oscuro p:hover{
+  color: var(--texto-1);
+  transition: color 0.25s ease;
 }
