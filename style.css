@@ -1,0 +1,115 @@
+/* Modo oscuro suave y moderno + sombras sutiles en hover */
+
+:root{
+  --borde: 16px;
+  --sombra: 0 10px 28px rgba(0,0,0,.35);
+  --sombra-hover: 0 10px 24px rgba(0,0,0,.28);  /* sombra suave */
+  --fondo-1: #0e0f12;  /* fondo general */
+  --fondo-2: #15171c;  /* cartas */
+  --fondo-3: #1c1f26;  /* inputs */
+  --texto-1: #e8eaee;
+  --texto-2: #aab2c0;
+  --acento:  #7c5cff;  /* violeta azulado */
+  --acento-2:#9f86ff;
+  --dorado:  #f1b900;
+  --gris-estrella: #505760;
+}
+
+.bg-nocturno{ background: radial-gradient(1200px 800px at 30% -20%, #1a1d24 0%, var(--fondo-1) 55%) no-repeat fixed; }
+.bg-gradiente{ background: linear-gradient(180deg, #13151a 0%, #0f1116 100%); }
+
+.titulo-marca{ font-weight: 700; letter-spacing: .2px; }
+
+.navbar .nav-link{ color: var(--texto-2); }
+.navbar .nav-link.active{ color: var(--texto-1); }
+.navbar .btn-outline-light{ border-color: #3b3f47; color: var(--texto-1); }
+.navbar .btn-outline-light:hover{ background: #2a2e36; }
+
+.seccion-cabecera{ padding-top: 28px; padding-bottom: 8px; color: var(--texto-1); }
+.seccion-contenido{ padding-top: 8px; padding-bottom: 40px; color: var(--texto-1); }
+
+.tarjeta-oscura{
+  border: 1px solid #242935;
+  border-radius: var(--borde);
+  background: var(--fondo-2);
+  box-shadow: var(--sombra);
+}
+
+.borde-suave{ border-radius: var(--borde); }
+
+/* Botón acento */
+.btn-resaltado{ background: var(--acento); color: white; border: none; }
+.btn-resaltado:hover{ background: var(--acento-2); }
+
+/* ======= HOVER sutil y elegante ======= */
+.hover-sombra,
+.card-pelicula,
+.btn:not(.btn-link){
+  transition: box-shadow .18s ease, transform .18s ease;
+}
+.hover-sombra:hover,
+.card-pelicula:hover,
+.btn:not(.btn-link):hover{
+  box-shadow: var(--sombra-hover);
+  transform: translateY(-1px);
+}
+
+/* ============ Marco 2:3 para imágenes (similar a w200 de TMDB) ============ */
+.marco-2x3{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;           /* Fuerza formato 2:3 */
+  overflow: hidden;
+  background: #0f1116;           /* Fondo por si hay bordes/letterbox */
+  border-bottom: 1px solid #242935;
+}
+.ajuste-2x3{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;              /* recorta para llenar el marco */
+  object-position: center;        /* centrado si la imagen es más alta/ancha */
+  display: block;
+}
+
+/* Galería (tarjetas más chicas) */
+.card-pelicula{
+  border: 1px solid #242935;
+  border-radius: var(--borde);
+  background: var(--fondo-2);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+
+/* Estrellas superpuestas (base gris + relleno dorado recortado por width) */
+.caja-estrellas{ position: relative; display: inline-block; line-height: 0; }
+.estrellas-base, .estrellas-relleno{ display: inline-block; white-space: nowrap; }
+.estrellas-relleno{ position: absolute; inset: 0 auto auto 0; overflow: hidden; }
+.caja-estrellas svg{ width: 18px; height: 18px; } /* estrellas un poco más pequeñas para acompañar el tamaño */
+.estrella-vacia path{ fill: var(--gris-estrella); }
+.estrella-llena path{ fill: var(--dorado); }
+
+/* Aparición suave */
+.aparece{ animation: fade .28s ease-out both; }
+@keyframes fade{
+  from{ opacity: 0; transform: translateY(6px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+/* Inputs oscuros */
+.form-control, .form-select, .form-control:focus, .form-select:focus{
+  background: var(--fondo-3);
+  border-color: #2b2f39;
+  color: var(--texto-1);
+}
+.form-text{ color: var(--texto-2); }
+.invalid-feedback{ color: #ff9aa5; }
+
+/* Etiquetas */
+.form-label-min{ font-size: .95rem; }
+.control-min{ font-size: 1rem; }
+
+/* Detalle: limitar ancho del póster para que no sea enorme en desktop */
+.detalle-poster{
+  max-width: 320px;  /* límite elegante en pantallas grandes */
+  margin-inline: auto;
+}

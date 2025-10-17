@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mis películas</title>
+
+  <!-- Bootstrap 5 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-nocturno">
+  <!-- Navbar oscura y minimalista -->
+  <nav class="navbar border-bottom bg-gradiente shadow-sm">
+    <div class="container d-flex align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <a class="navbar-brand titulo-marca text-white-50" href="#/galeria">Mis películas</a>
+      </div>
+      <!-- Botón que se convierte en el nombre del usuario y permite cambiarlo (con hover sutil) -->
+      <button id="btn-nombre" class="btn btn-sm btn-outline-light hover-sombra">Definir nombre</button>
+    </div>
+  </nav>
+
+  <!-- Cabecera -->
+  <header class="container seccion-cabecera">
+    <h1 class="display-6 fw-semibold mb-2">Mis películas</h1>
+    <p class="text-white-50 mb-0">Tu registro personal de películas vistas, con puntaje y reseña propia.</p>
+  </header>
+
+  <!-- Contenido: filtros + galería + botón para abrir el form + form colapsable al final -->
+  <main class="container seccion-contenido">
+    <!-- Filtros (se ocultan en vista de detalle) -->
+    <section id="seccion-filtros" class="card tarjeta-oscura mb-4">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12 col-md">
+            <label for="input-buscar" class="form-label form-label-min">Buscar por título</label>
+            <input type="search" id="input-buscar" class="form-control form-control-lg control-min" placeholder="Escribí para filtrar..." />
+          </div>
+          <div class="col-12 col-md-4">
+            <label for="select-orden" class="form-label form-label-min">Ordenar por</label>
+            <select id="select-orden" class="form-select form-select-lg control-min">
+              <option value="fecha-desc">Fecha (más recientes)</option>
+              <option value="fecha-asc">Fecha (más antiguas)</option>
+              <option value="puntuacion-desc">Puntuación (mayor a menor)</option>
+              <option value="puntuacion-asc">Puntuación (menor a mayor)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galería / Detalle -->
+    <section id="vista-contenido" aria-live="polite"><!-- el JS dibuja acá --></section>
+
+    <!-- Botón grande para mostrar/ocultar el formulario (se oculta en vista de detalle) -->
+    <div class="text-center mt-4" id="bloque-boton-agregar">
+      <button
+        class="btn btn-lg btn-resaltado hover-sombra"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#seccion-form"
+        aria-expanded="false"
+        aria-controls="seccion-form"
+        id="btn-toggle-form"
+      >
+        AGREGAR PELÍCULA
+      </button>
+    </div>
+
+    <!-- Formulario al final, inicialmente oculto -->
+    <section class="card tarjeta-oscura mt-3 collapse" id="seccion-form">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Agregar una película</h2>
+        <form id="form-agregar" novalidate>
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label for="input-titulo" class="form-label">Nombre de la película</label>
+              <input type="text" class="form-control" id="input-titulo" placeholder="Ej: El Padrino" required />
+              <div class="invalid-feedback">El título debe tener entre 3 y 100 caracteres.</div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="input-puntuacion" class="form-label">Puntuación (0.5 a 5)</label>
+              <input type="number" class="form-control" id="input-puntuacion" min="0.5" max="5" step="0.5" placeholder="Ej: 4.5" required />
+              <div class="invalid-feedback">La puntuación debe estar entre 0.5 y 5.</div>
+            </div>
+            <div class="col-12">
+              <label for="input-resena" class="form-label">Reseña personal</label>
+              <textarea class="form-control" id="input-resena" rows="4" placeholder="Contá qué te pareció (10 a 600 caracteres)" required></textarea>
+              <div class="invalid-feedback">La reseña debe tener entre 10 y 600 caracteres.</div>
+            </div>
+            <div class="col-12">
+              <label for="input-imagen" class="form-label">URL de imagen</label>
+              <input type="url" class="form-control" id="input-imagen" placeholder="https://ejemplo.com/poster.jpg" required />
+              <div class="invalid-feedback">Ingresá una URL válida que termine en .jpg, .jpeg, .png o .webp.</div>
+            </div>
+          </div>
+          <div class="d-grid mt-3">
+            <button id="btn-agregar" type="submit" class="btn btn-light btn-lg hover-sombra">Guardar película</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para definir/editar nombre -->
+  <div class="modal fade" id="modalNombre" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content tarjeta-oscura borde-suave">
+        <div class="modal-header">
+          <h5 class="modal-title">Tu nombre</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <label for="input-nombre-usuario" class="form-label">¿Cómo querés que aparezca tu nombre?</label>
+          <input type="text" id="input-nombre-usuario" class="form-control" placeholder="Ej: Juan Pérez" maxlength="40" />
+          <div class="form-text">Se guarda en tu navegador y reemplaza el botón de arriba a la derecha.</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btn-guardar-nombre" class="btn btn-resaltado hover-sombra">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor para toasts -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-area" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Lógica -->
+  <script defer src="script.js"></script>
+</body>
+</html>
